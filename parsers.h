@@ -7,13 +7,18 @@
 #include <vector>
 #define ARRAY std::vector<int>
 
+void ExpressionSplit(char * expression);
+void CopyStr(char* dst, const char* src);
+std::vector<char*> SplitStr(const char* src, char c);
 class Expression
 {
+public:
 	char left;
 	char* right = nullptr;
 	int where_project = 0;
-public:
+
 	Expression(const Expression &source);
+	explicit Expression(char left, const char* right, int where_project);
 	explicit Expression(char* expression);
 
 	~Expression();
@@ -23,7 +28,7 @@ public:
 
 	void NextProject();
 
-	static int CheckExpression(char* expression);
+	static int CheckExpression(const char* expression);
 };
 
 
@@ -32,7 +37,7 @@ class ExpressionList
 	std::vector<Expression> eList;
 public:
 	ExpressionList() = default;
-	void Add(Expression e);
+	void Add(const Expression& e);
 	ARRAY Find(char non_terminal) const;
 };
 

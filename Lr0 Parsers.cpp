@@ -49,10 +49,60 @@ Expression::Expression(char* expression)
 	}
 }
 
+Expression::Expression(const char left, const char* right, const int where_project)
+	: left(left),
+	  where_project(where_project)
+{
+	CopyStr(this->right, right);
+}
+
+void ExpressionSplit(char* expression)
+{
+}
+
+void CopyStr(char* dst, const char* src)
+{
+	dst = new char[strlen(src) + 1];
+	dst[strlen(src)] = '\0';
+	for (int i = 0; i < static_cast<int>(strlen(src)); i++)
+	{
+		dst[i] = src[i];
+	}
+}
+
+std::vector<char*> SplitStr(const char* src, const char c)
+{
+	std::vector<char*> dst;
+	int l = 0, r = 0;
+
+	for (int i = 0; i < strlen(src); i++)
+	{
+		if (src[i] == c)
+		{
+			r = i;
+			auto temp = new char[r - l + 1];
+			temp[r] = '\0';
+			for (int j = 0; j < r - l; j++)
+			{
+				temp[j] = src[j + l];
+			}
+			dst.push_back(temp);
+			l = r + 1;
+		}
+		if (l == 0)
+		{
+			char *temp = nullptr;
+			CopyStr(temp, src);
+			dst.push_back(temp);
+		}
+	}
+	return dst;
+}
+
 Expression::Expression(const Expression& source)
 {
 	left = source.left;
-	right = source.right;
+	CopyStr(right, source.right);
 	where_project = source.where_project;
 }
 
@@ -71,16 +121,20 @@ void Expression::NextProject()
 	where_project++;
 }
 
-int Expression::CheckExpression(char* expression)
+int Expression::CheckExpression(const char* expression)
 {
 	int left_cnt = 0;
 	for (int i = 0; i < static_cast<int>(strlen(expression)); i ++)
 	{
-		left_cnt++;
-		if (expression[i] == '-' && expression[i + 1]++ == '>')
+		if (expression[i] == ' ')
+		{
+			continue;
+		}
+		if (expression[i] == '-' && expression[i + 1] == '>')
 		{
 			break;
 		}
+		left_cnt++;
 	}
 	if (left_cnt > 1)
 	{
@@ -90,8 +144,9 @@ int Expression::CheckExpression(char* expression)
 	return NORMAL;
 }
 
-void ExpressionList::Add(const Expression e)
+void ExpressionList::Add(const Expression& e)
 {
+	std::vector<char*> temp = SplitStr(e.right, '|');
 	eList.push_back(e);
 }
 

@@ -6,6 +6,7 @@
 #include "header.h"
 #define ERROR (-1)
 #define NORMAL 1
+
 void PrintInfo()
 {
 	std::string wrap = "\n";
@@ -50,10 +51,11 @@ void Run()
 	ExpressionList elist;
 	while (lines)
 	{
-		std::cin>> buffer;
-		if (Expression::CheckExpression(buffer))
+		std::cin >> buffer;
+		if (Expression::CheckExpression(buffer) == ERROR)
 		{
-				
+			std::cout << "Please enter this sentence again:\n";
+			continue;
 		}
 		elist.Add(Expression(buffer));
 		lines--;
