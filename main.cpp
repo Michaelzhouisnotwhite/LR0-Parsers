@@ -1,7 +1,8 @@
-#include "parsers.h"
+#include "header.h"
 int main()
 {
 	char test[] = "E -> aB";
-	Expression e(test);
+	char a[] = "1";
+	Run();
 	return 0;
 }

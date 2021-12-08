@@ -139,10 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="function.cpp" />
     <ClCompile Include="Lr0 Parsers.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header.h" />
     <ClInclude Include="parsers.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
