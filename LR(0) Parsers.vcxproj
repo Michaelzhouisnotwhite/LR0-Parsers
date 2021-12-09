@@ -139,13 +139,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ExpressionLib.cpp" />
+    <ClCompile Include="ExpressionParser.cpp" />
     <ClCompile Include="function.cpp" />
-    <ClCompile Include="Lr0 Parsers.cpp" />
+    <ClCompile Include="Lr0_Parsers.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ExpressionLib.h" />
+    <ClInclude Include="function.h" />
     <ClInclude Include="header.h" />
-    <ClInclude Include="parsers.h" />
+    <ClInclude Include="ExpressionParser.h" />
+    <ClInclude Include="LR0_Parser.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

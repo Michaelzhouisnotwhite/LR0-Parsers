@@ -3,8 +3,20 @@
 // Edit by @Michael Zhou
 
 #pragma once
+#include <iostream>
+#include <cctype>
+#include <vector>
+#include <string>
 
-#include "parsers.h"
+#define ERROR (-1)
+#define NORMAL 1
+#define NARRAY std::vector<int>
+#define SARRAY std::vector<char*>
+#define FLAG int
 
-void PrintInfo();
-void Run();
+struct Pos
+{
+	int left;
+	int right;
+};
+
