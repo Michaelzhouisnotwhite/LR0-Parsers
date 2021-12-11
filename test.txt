@@ -1,0 +1,11 @@
+3
+E->aA|bB
+A->cA|d
+B->cB->d
+
+
+4
+S->aAcBe
+A->b 
+A->Ab 
+B->d 

@@ -1,17 +1,40 @@
 ﻿// LR(0) Parsers build in 2021.12.08
 // file name: Lr0_Parsers.cpp
 // Edit by @Michael Zhou
+#include <set>
+
 #include "LR0_Parser.h"
 
 
-Node::Node(const Expression e)
+Node::Node(Expression* e)
 {
 	this->e = e;
+}
+
+Node::Node(const Node& node)
+{
+	where = node.where;
+	e = node.e;
+}
+
+Container::Container(const int s, const char data)
+	: s(s),
+	  data(data)
+{
+}
+
+Container::~Container()
+{
+	for (auto node : nodes)
+	{
+		delete node;
+	}
 }
 
 Lr0Parsers::Lr0Parsers()
 {
 	Run();
+	InitDfa();
 }
 
 void Lr0Parsers::PrintInfo()
@@ -72,15 +95,66 @@ void Lr0Parsers::Run()
 	}
 }
 
-void Lr0Parsers::Parsing()
+void Lr0Parsers::InitDfa()
 {
-	root.nodes.emplace_back(Node(library.lib[0]));
-	for (auto value : library.lib)
+	root.containers.emplace_back(Node(&library.lib[0]));
+	FindContainer(&root);
+	FindNext(&root);
+}
+
+void Lr0Parsers::FindNext(Container* container)
+{
+	auto expression = container->containers;
+	std::vector<char> vt_list;
+	std::vector<char> vn_list;
+	Container* node = nullptr;
+	int container_s = container->s;
+	for (const auto& i : expression)
 	{
-		if (value.GetRight())
+		if (i.where != i.e->length)
 		{
-			
+			char data = i.e->GetRight(static_cast<int>(i.where));
+			int if_vn_exists = -1;
+			for (auto value : container->nodes)
+			{
+				if (value->data == data)
+				{
+					if_vn_exists = 1;
+					node = value;
+					break;
+				}
+			}
+			if (if_vn_exists == -1)
+			{
+				container_s++;
+				node = new Container(container_s, data);
+				container->nodes.push_back(node);
+			}
+			Node next_node(i);
+			next_node.where++;
+			node->containers.push_back(next_node);
+			FindContainer(node);
+			// FindNext(node);
 		}
+	}
+	for (auto value : container->nodes)
+	{
+		FindNext(value);
 	}
 }
 
+void Lr0Parsers::FindContainer(Container* container)
+{
+	for (const Node& node : container->containers)
+	{
+		NARRAY idx = library.FindVn(node.e->GetRight(static_cast<int>(node.where)));
+		for (const auto& value : idx)
+		{
+			container->containers.emplace_back(Node(&library.lib[value]));
+		}
+	}
+	// FindNext(container);
+}
+
+Lr0Parsers::~Lr0Parsers()
+= default;

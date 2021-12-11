@@ -8,18 +8,23 @@
 class Node
 {
 public:
-	int where =0;
-	Expression e;
-	explicit Node(Expression e);
+	unsigned where = 0;
+	Expression *e = nullptr;
+	explicit Node(Expression *e);
+	Node(const Node& node);
 };
+
 class Container
 {
 public:
 	int s = 0;
 	char data{};
 
-	std::vector<Node> nodes;
-	std::vector<Container*> containers;
+	std::vector<Node> containers;
+	std::vector<Container*> nodes;
+	Container()=default;
+	explicit Container(int s, char data);
+	~Container();
 };
 
 class Lr0Parsers
@@ -30,6 +35,11 @@ public:
 	Lr0Parsers();
 	static void PrintInfo();
 	void Run();
-	void Parsing();
-	void Lr0Tree(Container **node);
+	void InitDfa();
+
+	void FindNext(Container* container);
+	void FindContainer(Container* container);
+
+	~Lr0Parsers();
+
 };
