@@ -5,6 +5,9 @@
 #pragma once
 #include "header.h"
 #include "ExpressionParser.h"
+/**
+ * \brief 表达式library的基础单位
+ */
 class Expression
 {
 public:
@@ -14,10 +17,13 @@ public:
 	unsigned no;
 	Expression(char left, const char* right, unsigned no);
 	Expression(const Expression& src);
-	char GetLeft();
+	char GetLeft() const;
 	char GetRight(int index) const;
 };
 
+/**
+ * \brief 表达式数据库
+ */
 class ExpressionLib
 {
 public:

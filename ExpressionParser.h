@@ -5,6 +5,9 @@
 #pragma once
 #include "header.h"
 
+/**
+ * \brief 表达式解析器
+ */
 class ExpressionParser
 {
 public:
@@ -17,5 +20,5 @@ public:
 
 	SARRAY GetRight();
 	char GetLeft() const;
-	static int CheckExpression(const char* expression);
+	static FLAG CheckExpression(const char* expression);
 };

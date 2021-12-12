@@ -4,6 +4,10 @@
 #include "ExpressionParser.h"
 #include "utils.h"
 
+/**
+ * \brief 将输入缓冲区的表达式加工成可用数据结构（左右分开）
+ * \param input 输入缓冲区
+ */
 ExpressionParser::ExpressionParser(char* input)
 {
 	int len = strlen(input);
@@ -43,6 +47,7 @@ ExpressionParser::ExpressionParser(char* input)
 		expression_last_ptr--;
 	}
 
+	// 如果有“|”符号，那么分开成两个表达式
 	SplitStr str(right, '|');
 	for (int i = 0; i < str.NSubStrs(); i++)
 	{
@@ -69,7 +74,12 @@ char ExpressionParser::GetLeft() const
 	return left;
 }
 
-int ExpressionParser::CheckExpression(const char* expression)
+/**
+ * \brief 判断输入是否符合LR0表达式
+ * \param expression 输入缓冲区字符串
+ * \return 是否是LR0文法表达式
+ */
+FLAG ExpressionParser::CheckExpression(const char* expression)
 {
 	int left_cnt = 0;
 	for (int i = 0; i < static_cast<int>(strlen(expression)); i ++)

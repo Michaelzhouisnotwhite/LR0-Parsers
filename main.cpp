@@ -2,10 +2,6 @@
 #include "utils.h"
 int main()
 {
-	char test[] = "E -> aB";
-	char test2[] = "aA|bB";
-	char a[] = "1";
 	Lr0Parsers parsers;
-
 	return 0;
 }

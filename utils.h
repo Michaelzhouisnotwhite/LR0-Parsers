@@ -4,6 +4,9 @@
 
 #pragma once
 #include "header.h"
+/**
+ * \brief 拆分字符串
+ */
 class SplitStr
 {
 	char* src;
