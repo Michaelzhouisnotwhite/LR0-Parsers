@@ -9,6 +9,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.py
+save-pic-settings.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
