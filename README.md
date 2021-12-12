@@ -1,10 +1,30 @@
 ## LR(0)分析法研究
 
+## 题目
+
 1. 文法使用产生式来定义；
 2. 给出项目集规范族（即所有的状态）。
 3. 给出状态间的关系。
 4. 给出LR(0)分析表。
 5. 给定符号串判定它是否是文法中的句子，分析过程用分析表格的方式打印出来。
+
+```bash
+.
+|-- [2.1K]  ExpressionLib.cpp
+|-- [ 798]  ExpressionLib.h // 表达式数据库
+|-- [1.9K]  ExpressionParser.cpp 
+|-- [ 447]  ExpressionParser.h // 表达式解析器
+|-- [1.1K]  LR0_Parser.h // LR0 解析器
+|-- [5.0K]  Lr0_Parsers.cpp
+|-- [1.2K]  README.md
+|-- [ 322]  function.cpp
+|-- [ 171]  function.h
+|-- [ 351]  header.h
+|-- [  95]  main.cpp
+|-- [  69]  test.txt
+|-- [1.0K]  utils.cpp
+|-- [ 490]  utils.h // 字符串工具等
+```
 
 ### 目前已经解决的问题：
 
@@ -57,9 +77,9 @@ A -> b@
 **NOTE** 
 12.31日之前完成任务
 
-### 问题：
-
 <img src="./.github/exp01.png" style="zoom: 50%;" />
+
+### 问题：
 
 1. 一个自己循环的节点目前没有什么好方法识别
 2. 两个项目集规范族指向同一个项目集规范族没有解决
