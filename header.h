@@ -13,10 +13,7 @@
 #define NARRAY std::vector<int>
 #define SARRAY std::vector<char*>
 #define FLAG int
+#define TRUE 1
+#define FALSE (-1)
 
-struct Pos
-{
-	int left;
-	int right;
-};
 

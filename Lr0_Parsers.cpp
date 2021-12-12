@@ -35,6 +35,9 @@ Lr0Parsers::Lr0Parsers()
 {
 	Run();
 	InitDfa();
+	FindContainer(&root);
+	FindNext(&root, root.s);
+	OutputProject(&root);
 }
 
 void Lr0Parsers::PrintInfo()
@@ -98,48 +101,43 @@ void Lr0Parsers::Run()
 void Lr0Parsers::InitDfa()
 {
 	root.containers.emplace_back(Node(&library.lib[0]));
-	FindContainer(&root);
-	FindNext(&root);
 }
 
-void Lr0Parsers::FindNext(Container* container)
+void Lr0Parsers::FindNext(Container* container, int s)
 {
 	auto expression = container->containers;
-	std::vector<char> vt_list;
-	std::vector<char> vn_list;
 	Container* node = nullptr;
-	int container_s = container->s;
+
 	for (const auto& i : expression)
 	{
 		if (i.where != i.e->length)
 		{
 			char data = i.e->GetRight(static_cast<int>(i.where));
-			int if_vn_exists = -1;
+			int if_vn_exists = FALSE;
 			for (auto value : container->nodes)
 			{
 				if (value->data == data)
 				{
-					if_vn_exists = 1;
+					if_vn_exists = TRUE;
 					node = value;
 					break;
 				}
 			}
-			if (if_vn_exists == -1)
+			if (if_vn_exists == FALSE)
 			{
-				container_s++;
-				node = new Container(container_s, data);
+				s++;
+				node = new Container(s, data);
 				container->nodes.push_back(node);
 			}
 			Node next_node(i);
 			next_node.where++;
 			node->containers.push_back(next_node);
 			FindContainer(node);
-			// FindNext(node);
 		}
 	}
 	for (auto value : container->nodes)
 	{
-		FindNext(value);
+		FindNext(value, s);
 	}
 }
 
@@ -153,7 +151,33 @@ void Lr0Parsers::FindContainer(Container* container)
 			container->containers.emplace_back(Node(&library.lib[value]));
 		}
 	}
-	// FindNext(container);
+	project_list.push_back(container);
+}
+
+void Lr0Parsers::OutputProject(const Container* container)
+{
+	printf("I%d: %c\n", container->s, container->data);
+	for (auto node : container->containers)
+	{
+		std::cout << node.e->GetLeft() << " -> ";
+		for (unsigned i = 0; i < node.e->length; i++)
+		{
+			if (node.where == i)
+			{
+				std::cout << "@";
+			}
+			std::cout << node.e->right[i];
+		}
+		if (node.where == node.e->length)
+		{
+			std::cout << "@";
+		}
+		std::cout.put('\n');
+	}
+	for (auto node : container->nodes)
+	{
+		OutputProject(node);
+	}
 }
 
 Lr0Parsers::~Lr0Parsers()

@@ -5,7 +5,6 @@
 
 Expression::Expression(const char left, const char* right, const unsigned no)
 	: left(left),
-	  right{},
 	  length(0),
 	  no(no)
 {
@@ -64,13 +63,6 @@ void ExpressionLib::Add(ExpressionParser e)
 	}
 }
 
-// int ExpressionLib::IfVn(char charactor)
-// {
-// 	for (char vn : vn_set)
-// 	{
-// 		if (vn == charactor)
-// 	}
-// }
 
 NARRAY ExpressionLib::FindVn(const char non_terminal) const
 {
