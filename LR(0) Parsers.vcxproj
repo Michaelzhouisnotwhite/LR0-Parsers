@@ -142,6 +142,7 @@
     <ClCompile Include="ExpressionLib.cpp" />
     <ClCompile Include="ExpressionParser.cpp" />
     <ClCompile Include="function.cpp" />
+    <ClCompile Include="IoProcess.cpp" />
     <ClCompile Include="Lr0_Parsers.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="utils.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="function.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="ExpressionParser.h" />
+    <ClInclude Include="IoProcess.h" />
     <ClInclude Include="LR0_Parser.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>

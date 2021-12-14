@@ -7,6 +7,7 @@
 #include <cctype>
 #include <vector>
 #include <string>
+#include <fstream>
 
 #define ERROR (-1)
 #define NORMAL 1
