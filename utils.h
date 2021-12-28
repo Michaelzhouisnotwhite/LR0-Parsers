@@ -4,12 +4,23 @@
 
 #pragma once
 #include "header.h"
+#define CRTDBG_MAP_ALLOC
+
+#include <crtdbg.h>
+#include <cstdlib>
+inline void EnableMemLeakCheck()
+{
+	_CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_LEAK_CHECK_DF);
+}
+
+void CopyStr(wchar_t** dst, const wchar_t* src);
+wchar_t *CopyStr(const wchar_t* src);
 /**
  * \brief 拆分字符串
  */
 class SplitStr
 {
-	char* src;
+	wchar_t* src;
 	
 	struct Pos
 	{
@@ -19,9 +30,9 @@ class SplitStr
 	};
 	std::vector<Pos> poses;
 public:
-	explicit SplitStr(char* src, char c);
+	explicit SplitStr(wchar_t* src, wchar_t c);
 	int NSubStrs() const;
-	void SubStr(char** dst, int no) const;
-	char* SubStr(int no) const;
+	void SubStr(wchar_t** dst, int no) const;
+	wchar_t* SubStr(int no) const;
 	
 };

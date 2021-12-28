@@ -4,13 +4,17 @@
 
 #pragma once
 #include "header.h"
-
+#include "utils.h"
 class IoProcess
 {
 	std::ifstream infile;
-	char file_path[1024] = "./config/Lr0_grammar";
-	std::vector<char[1024]> buffer_list;
+	wchar_t file_path[1024] = L"./config/grammar.txt";
+	std::vector<wchar_t*> buffer_list;
+	std::vector<wchar_t*>::iterator buffer_list_point;
 public:
 	FLAG ReadFromFile();
-	char* GetFilePath();
+	wchar_t* GetFilePath();
+	int GetFileLines() const;
+	wchar_t* GetLine();
+	~IoProcess();
 };

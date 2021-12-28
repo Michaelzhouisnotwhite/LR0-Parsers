@@ -11,14 +11,14 @@
 class ExpressionParser
 {
 public:
-	char left;
+	wchar_t left;
 	SARRAY rightList;
-	char* right = nullptr;
+	wchar_t* right = nullptr;
 
-	explicit ExpressionParser(char *input);
+	explicit ExpressionParser(wchar_t *input);
 	~ExpressionParser();
 
 	SARRAY GetRight();
-	char GetLeft() const;
-	static FLAG CheckExpression(const char* expression);
+	wchar_t GetLeft() const;
+	static FLAG CheckExpression(const wchar_t* expression);
 };

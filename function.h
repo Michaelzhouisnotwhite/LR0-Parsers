@@ -4,4 +4,9 @@
 
 #pragma once
 #include "header.h"
-void CopyStr(char* dst, const char* src);
+#include "LR0_Parser.h"
+void Welcome();
+void Menu();
+void SwitchInput(wchar_t* buffer);
+void PrepareInputBuffer();
+void Lr0ParsersConsole();

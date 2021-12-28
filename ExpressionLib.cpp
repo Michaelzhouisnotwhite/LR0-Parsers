@@ -3,13 +3,15 @@
 // Edit by @Michael Zhou
 #include "ExpressionLib.h"
 
-Expression::Expression(const char left, const char* right, const unsigned no)
+#include "utils.h"
+
+Expression::Expression(const wchar_t left, const wchar_t* right, const unsigned no)
 	: left(left),
 	  length(0),
 	  no(no)
 {
-	strcpy_s(this->right, right);
-	length = strlen(right);
+	wcscpy_s(this->right, right);
+	length = wcslen(right);
 }
 
 /**
@@ -19,7 +21,7 @@ Expression::Expression(const char left, const char* right, const unsigned no)
 Expression::Expression(const Expression& src)
 {
 	left = src.left;
-	strcpy_s(right, src.right);
+	wcscpy_s(right, src.right);
 	length = src.length;
 	no = src.no;
 }
@@ -28,7 +30,7 @@ Expression::Expression(const Expression& src)
  * \brief 返回表达式左边符号
  * \return 表达式左边的Vn
  */
-char Expression::GetLeft() const
+wchar_t Expression::GetLeft() const
 {
 	return left;
 }
@@ -38,9 +40,18 @@ char Expression::GetLeft() const
  * \param index 核的位置（索引）
  * \return 符号
  */
-char Expression::GetRight(const int index) const
+wchar_t Expression::GetRight(const int index) const
 {
 	return right[index];
+}
+
+bool Expression::operator==(const Expression& exp) const
+{
+	if (!wcscmp(exp.right, right) && left == exp.left)
+	{
+		return true;
+	}
+	return false;
 }
 
 ExpressionLib::ExpressionLib() = default;
@@ -56,10 +67,11 @@ void ExpressionLib::Add(ExpressionParser e)
 	{
 		if (counter == 0)
 		{
-			auto temp = new char[2];
+			
+			auto temp = new wchar_t[2];
 			temp[1] = '\0';
 			temp[0] = e.GetLeft();
-			lib.emplace_back(Expression('\'', temp, counter));
+			lib.emplace_back(Expression('`', temp, counter));
 			delete[] temp;
 			counter += 1;
 		}
@@ -69,7 +81,7 @@ void ExpressionLib::Add(ExpressionParser e)
 	}
 	// 表达式集合（暂时没有用）
 	int tmp_equal = 0;
-	for (char vn : vn_set)
+	for (wchar_t vn : vn_set)
 	{
 		if (vn == e.GetLeft())
 		{
@@ -88,7 +100,7 @@ void ExpressionLib::Add(ExpressionParser e)
  * \param non_terminal 符号
  * \return 由这个符号产生的表达式索引列表
  */
-NARRAY ExpressionLib::FindVn(const char non_terminal) const
+NARRAY ExpressionLib::FindVn(const wchar_t non_terminal) const
 {
 	NARRAY arr;
 	for (unsigned i = 0; i < lib.size(); i++)

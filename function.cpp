@@ -4,14 +4,50 @@
 
 #include "function.h"
 
-void CopyStr(char* dst, const char* src)
+void Welcome()
 {
-	dst = new char[strlen(src) + 1];
-	dst[strlen(src)] = '\0';
-	for (int i = 0; i < static_cast<int>(strlen(src)); i++)
+	std::wcout << "Welcome to LR(0) Parsers! Enter 'h' to get help" << std::endl;
+}
+
+void Menu()
+{
+	std::wcout << "GETTING HELP" << std::endl;
+	std::wcout << "------------" << std::endl;
+	std::wcout << std::endl;
+	std::wcout << "    f   -> Read grammar from file: './config/grammar.txt'" << std::endl;
+	std::wcout << "    i   -> Read grammar from YOUR input" << std::endl;
+	// std::wcout << "    f   -> Read grammar from file: './config/grammar.txt'";
+}
+
+void SwitchInput(wchar_t* buffer)
+{
+	wchar_t choice[2][2] = {L"f", L"i"};
+	for (unsigned i =0; i < sizeof(buffer); i++)
 	{
-		dst[i] = src[i];
+		if (buffer[i] == ' ')
+		{
+			int blank_idx = i;
+		}
+		else
+		{
+			break;
+		}
 	}
 }
 
+void PrepareInputBuffer()
+{
+	std::wcout << "> ";
+}
 
+void Lr0ParsersConsole()
+{
+	Welcome();
+	while (true)
+	{
+		wchar_t buffer[1024];
+		PrepareInputBuffer();
+		std::wcin.getline(buffer, 1024);
+		Lr0Parsers parsers;
+	}
+}

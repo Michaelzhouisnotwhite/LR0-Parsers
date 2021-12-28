@@ -1,7 +1,7 @@
 3
 E->aA|bB
 A->cA|d
-B->cB->d
+B->cB|d
 
 
 4

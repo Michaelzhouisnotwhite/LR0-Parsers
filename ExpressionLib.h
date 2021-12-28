@@ -11,14 +11,16 @@
 class Expression
 {
 public:
-	char left;
-	char right[255]{};
+	wchar_t left;
+	wchar_t right[255]{};
 	unsigned length;
 	unsigned no;
-	Expression(char left, const char* right, unsigned no);
+	Expression(wchar_t left, const wchar_t* right, unsigned no);
 	Expression(const Expression& src);
-	char GetLeft() const;
-	char GetRight(int index) const;
+	wchar_t GetLeft() const;
+	wchar_t GetRight(int index) const;
+
+	bool operator==(const Expression& exp) const;
 };
 
 /**
@@ -30,11 +32,11 @@ public:
 	std::vector<Expression> lib;
 private:
 	int counter = 0;
-	std::vector<char> vn_set;
+	std::vector<wchar_t> vn_set;
 public:
 	ExpressionLib();
 	void Add(ExpressionParser e);
-	// int IfVn(char charactor);
-	NARRAY FindVn(char non_terminal) const;
+	// int IfVn(wchar_t charactor);
+	NARRAY FindVn(wchar_t non_terminal) const;
 	Expression GetStart();
 };

@@ -8,9 +8,10 @@
  * \brief 将输入缓冲区的表达式加工成可用数据结构（左右分开）
  * \param input 输入缓冲区
  */
-ExpressionParser::ExpressionParser(char* input)
+ExpressionParser::ExpressionParser(wchar_t* input)
 {
-	int len = strlen(input);
+	// S -> Ab | Bb
+	int len = wcslen(input);
 	int right_cnt = 0;
 	int tmp_left_count = 1;
 
@@ -33,9 +34,10 @@ ExpressionParser::ExpressionParser(char* input)
 		}
 		right_cnt++;
 	}
-	right = new char[right_cnt + 1];
+	
+	right = new wchar_t[right_cnt + 1];
 	right[right_cnt] = '\0';
-	char* expression_last_ptr = &input[len - 1];
+	wchar_t* expression_last_ptr = &input[len - 1];
 	int k = right_cnt - 1;
 	while (k >= 0)
 	{
@@ -69,20 +71,21 @@ SARRAY ExpressionParser::GetRight()
 	return rightList;
 }
 
-char ExpressionParser::GetLeft() const
+wchar_t ExpressionParser::GetLeft() const
 {
 	return left;
 }
+
 
 /**
  * \brief 判断输入是否符合LR0表达式
  * \param expression 输入缓冲区字符串
  * \return 是否是LR0文法表达式
  */
-FLAG ExpressionParser::CheckExpression(const char* expression)
+FLAG ExpressionParser::CheckExpression(const wchar_t* expression)
 {
 	int left_cnt = 0;
-	for (int i = 0; i < static_cast<int>(strlen(expression)); i ++)
+	for (int i = 0; i < static_cast<int>(wcslen(expression)); i ++)
 	{
 		if (expression[i] == ' ')
 		{
@@ -96,7 +99,7 @@ FLAG ExpressionParser::CheckExpression(const char* expression)
 	}
 	if (left_cnt > 1)
 	{
-		std::cout << "its not a grammar based on LR(0)!" << std::endl;
+		std::wcout << "its not a grammar based on LR(0)!" << std::endl;
 		return ERROR;
 	}
 	return NORMAL;

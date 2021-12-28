@@ -8,11 +8,13 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <set>
+#include <stack>
 
 #define ERROR (-1)
 #define NORMAL 1
 #define NARRAY std::vector<int>
-#define SARRAY std::vector<char*>
+#define SARRAY std::vector<wchar_t*>
 #define FLAG int
 #define TRUE 1
 #define FALSE (-1)
