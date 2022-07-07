@@ -15,7 +15,7 @@ public:
 	Expression* e = nullptr;
 	explicit Node(Expression* e);
 	Node(const Node& node);
-	bool operator==(const Node& node) const;
+	bool operator==(const Node& node) const;                  
 };
 
 struct IsSelf
